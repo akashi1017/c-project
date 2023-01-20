@@ -1,0 +1,305 @@
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+struct web
+{
+char name[30],pass[30];
+}w[99];
+//DATA MODULE
+int data();
+int data()
+{
+	int o3;
+	system("CLS");
+	printf("  DATA STATISTICS OF OUR MODEL\n\n\n");
+	printf("           .____________________________________________________________________.\n");
+	printf("	   |	CITY	  |	 CULPRITS	|	WASTE	 |MODEL ACCURACY|\n");
+	printf("           |____________________________________________________________________|\n");
+	printf("	   |    ahemdabad |       117		|    10kg	 |      43%	|\n");
+	printf("           |____________________________________________________________________|\n");
+	printf("           |     goa      |       65            |    1.5kg       |      59      |\n");
+	printf("           |____________________________________________________________________|\n");
+	printf("           |    delhi     |       19            |     1kg        |      7       |\n");
+	printf("           |____________________________________________________________________|\n");
+	printf("\n\nPRESS 1 TO KNOW HOW OUR MODEL WORKS\n");
+	scanf("\n%d",&o3);
+	if(o3==1)
+	{
+		synopsis();
+	}
+}
+//REGISTRATION DATA MODULE
+int regist();
+int regist()
+{
+	system("CLS");
+	printf("          WANT TO JOIN WITH US ON OUR JOURNEY!!\n\n");
+	char name[20] ,city[10], why[30] ,inst[20];
+	int year;
+	printf(" \n YOUR NAME: ");
+	scanf("\n%s",&name);
+	printf(" \n CITY: ");
+	scanf("\n%s",&city);
+	printf(" \n WHY are u joing us: ");
+	scanf("\n%s",&why);
+	printf(" \nname of institute the model is used for: ");
+	scanf("\n%s",&inst);
+	printf("========================================================================================================================\n");
+	printf("\nWELCOME ON BOARD %s for years\n\n",name);
+	printf(" TO know more about us please visit our office in %s\n\n",city);
+	printf(" 						THANKS FOR VISITING US!!");	
+}
+//LOGIN MODULE
+int admin();
+int admin()
+{
+	char userID[]="admin", password[]="123", id[20], p[20];
+    int n=1, x, y, o1;
+
+    do{
+    	system("CLS");
+    	printf("							PLEASE LOGIN!");
+         printf("\n  userID: ");
+         scanf("%s", &id);
+         fflush(stdout);
+
+         printf("\n  Password: ");
+         scanf("%s", &p);
+         fflush(stdout);
+
+         x=strcmp(id, userID);
+         y=strcmp(p, password);
+
+         if(x==0 && y==0)
+		 {
+		   system("CLS");
+           printf("\n                                                Sucessfully Logged In\n");
+           printf("========================================================================================================================\n");
+           printf("     		PRESS 1 FOR DATA STATISTICS 			PRESS 2 FOR REGISTER FOR YOUR INSTITUTE\n");
+           scanf("%d",&o1);
+           if(o1==1)
+           {
+           	data();
+		   }
+		   else if(o1==2)
+		   {
+		   	regist();
+		   }
+           break;
+         }
+		 else {
+           printf("\nWrong Password, try again\n", 5-n);
+            getch();
+            n++; }
+
+         if(n>3)
+		 {
+		  system("CLS");
+          printf("\n                                                  Access Denied");
+          getch();
+         }
+
+       }while (n<=3);
+}
+//INFO MODULE
+int synopsis();
+int synopsis()
+{
+	system("CLS");
+	printf(" 	press 1 for WHAT       press 2 for WORKING       press 3 for CONTRIBUTE\n");
+	int num1;
+	scanf("%d",&num1);
+	switch(num1)
+	{
+	 case 1:
+	 		printf("\nThis project is about using AI to detect garbage detection.");
+			printf("--HOW--\n\n");
+			printf("\n\nThe project can be used by various public and private regions/institues to overcome the issue of garbage nuisance and put on some secuirty that will indeed lead to more cleaner and model regions ");
+			printf("The model works on an AI built to recognise and detect garbage thrown by a person and alert the authorities of the action being done.\n");
+	 case 2:
+	 		printf("--WORKING--\n\n");
+			printf(" The model uses Artificial Intelligence paired paired with Machine learning to generate a result\n");
+	 case 3:
+	 		printf("--IMPROVE--\n\n");
+			printf("\n if you would like to contribute to improving our model you an contact us at xxxxxxxxxx or visit our website\n");	 		  	
+	}
+	printf("========================================================================================================================\n");
+	
+}
+int developer();
+int developer()
+{
+	int t;
+	system("CLS");
+	printf("\nThis project is developed by Konark Solanki\n");
+	printf(" \nhe is an young and aspiring learner eager know more about the field of engineering and applied data.\n");
+	printf(" \nyou can contact him on xxxxxxxxxx\n");
+	printf(" \nlinks to his socials can be found below\n\n\n");
+	printf("PRESS 9 to go to OPTIONS page\n");
+	scanf("%d",&t);
+	if(t==9)
+	{
+		options();
+	}
+}
+//OPTIONS MODULE
+int options();
+int options()
+{
+	system("CLS");
+	printf(" 		press 1 for admin        	press 2 for synopsis    	press 3 for developer details\n\n" );
+	printf("		press 4 for login 			press 5 for register");
+	int num;
+	scanf("%d",&num);
+	switch(num)
+	{
+	 case 1:
+	 		 admin();
+			  break;
+	 case 2:
+	 		synopsis();
+			 break;
+	 case 3:
+	 		developer();
+			 break;	
+	case 4:
+	 		login();
+			 break;	
+	case 5: 
+			regis();
+			break;		 		 		 		  	
+	}
+}
+
+// login module
+int login();
+int login()
+    {
+        system("cls");
+        int i;
+      FILE *fp;
+      char c,name[30],pass[30]; int z=0;
+      int checku,checkp;
+      fp=fopen("Web_reg.txt","rb");
+      
+      for(i=0;i<1000;i++)
+      {
+        printf("\n\n\t\t\t\t  ENTER USERNAME: ");
+        scanf("%s",name);
+        printf("\n\n\t\t\t\t  ENTER PASSWORD: ");
+        while((c=getch())!=13)
+        {
+          pass[z++]=c;
+          printf("%c",'*');
+        }
+        pass[z]='\0';
+      while(!feof(fp))
+        {
+        fread(&w[i],sizeof(w[i]),1,fp);
+          checku=strcmp(name,w[i].name);
+          checkp=strcmp(pass,w[i].pass);
+          if(checku==0&&checkp==0)
+          {
+            system("cls");
+            printf("\n\n\n\t\t\tYOU HAVE LOGGED IN SUCCESSFULLY!!");
+            printf("\n\n\n\t\t\t\tWELCOME, HAVE A NICE DAY\n");
+            system("pause");
+            options();
+            break;
+          }
+        else if(checku==0&&checkp!=0)
+          {
+            printf("\n\n\n\t\t\tWRONG PASSWORD!! Not %s??",name);
+            printf("\n\n\t\t\t\t  (Press 'Y' to re-login)");
+            if(getch()=='y'||getch()=='Y')
+              login();
+          }
+        else if(checku!=0)
+          {
+            printf("\n\n\n\t\t\tYou are not a Registered User\n \t\t\tPress enter to register yourself");
+            if(getch()==13)
+           system("cls");
+            regis();
+          }
+        }
+        break;
+      }
+      getch();
+    }
+// registration module
+int regis();
+    int regis()
+  {
+    system("cls");
+    FILE *fp;
+    char c,checker[30]; int z=0;
+    fp=fopen("Web_reg.txt","ab+");
+    printf("WELCOME TO REGISTRATION SECTION");
+    int i;
+    for( i=0;i<5;i++)
+    {
+      printf("\n\nENTER USERNAME: ");
+      scanf("%s",checker);
+        while(!feof(fp))
+        {
+          fread(&w[i],sizeof(w[i]),1,fp);
+          if(strcmp(checker,w[i].name)==0)
+            {
+            printf("\n\nUSERNAME ALREDY EXISTS");
+            system("cls");
+            regis();
+            }
+          else
+          {
+            strcpy(w[i].name,checker);
+            break;
+          }
+        }
+      printf("\n\nDESIRED PASSWORD: ");
+      while((c=getch())!=13)
+        {
+          w[i].pass[z++]=c;
+          printf("%c",'*');
+        }
+      fwrite(&w[i],sizeof(w[i]),1,fp);
+      fclose(fp);
+      printf("\n\nPress enter if you agree with Username and Password");
+      if((c=getch())==13)
+        {
+        system("cls");
+        printf("\n\n\t\tYou are successfully registered");
+        printf("\n\n\t\tTry login your account??\n\n\t\t  ");
+        printf("PRESS 1 FOR YES\n\n PRESS 2 FOR NO\n\n");
+        int n;
+        scanf("%d",&n);
+        switch(n)
+          {
+              case 1: system("cls");;
+                    login();
+                    break;
+              case 2: system("cls");;
+                    printf("\n\n\n\t\t\t\t\tTHANK YOU FOR REGISTERING");
+                    break;
+          }
+        }
+        break;
+      }
+    getch();
+  }
+void main()
+{
+	printf("========================================================================================================================\n");
+	printf("						      ESFP-I PROJECT\n\n");
+	printf("							  PID-547\n\n");
+	printf("							  2022\n\n");
+	printf("            					     ~Konark Solanki\n\n");
+	printf("========================================================================================================================\n");
+	printf(" 						PRESS + TO GET TO THE OPTIONS PAGE\n");
+	char o;
+	scanf("%c",&o);
+	if(o=='+')
+	{
+	options();	
+	}
+  	
+}	
