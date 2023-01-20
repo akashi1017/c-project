@@ -148,7 +148,7 @@ int options()
 {
 	system("CLS");
 	printf(" 		press 1 for admin        	press 2 for synopsis    	press 3 for developer details\n\n" );
-	printf("		press 4 for login 			press 5 for register");
+	printf("		press 4 for login 			press 5 for register\n");
 	int num;
 	scanf("%d",&num);
 	switch(num)
@@ -173,119 +173,136 @@ int options()
 
 // login module
 int login();
-int login()
-    {
-        system("cls");
-        int i;
-      FILE *fp;
-      char c,name[30],pass[30]; int z=0;
-      int checku,checkp;
-      fp=fopen("Web_reg.txt","rb");
-      
-      for(i=0;i<1000;i++)
-      {
-        printf("\n\n\t\t\t\t  ENTER USERNAME: ");
-        scanf("%s",name);
-        printf("\n\n\t\t\t\t  ENTER PASSWORD: ");
-        while((c=getch())!=13)
-        {
-          pass[z++]=c;
-          printf("%c",'*');
-        }
-        pass[z]='\0';
-      while(!feof(fp))
-        {
-        fread(&w[i],sizeof(w[i]),1,fp);
-          checku=strcmp(name,w[i].name);
-          checkp=strcmp(pass,w[i].pass);
-          if(checku==0&&checkp==0)
-          {
-            system("cls");
-            printf("\n\n\n\t\t\tYOU HAVE LOGGED IN SUCCESSFULLY!!");
-            printf("\n\n\n\t\t\t\tWELCOME, HAVE A NICE DAY\n");
-            system("pause");
-            options();
-            break;
-          }
-        else if(checku==0&&checkp!=0)
-          {
-            printf("\n\n\n\t\t\tWRONG PASSWORD!! Not %s??",name);
-            printf("\n\n\t\t\t\t  (Press 'Y' to re-login)");
-            if(getch()=='y'||getch()=='Y')
-              login();
-          }
-        else if(checku!=0)
-          {
-            printf("\n\n\n\t\t\tYou are not a Registered User\n \t\t\tPress enter to register yourself");
-            if(getch()==13)
-           system("cls");
-            regis();
-          }
-        }
-        break;
-      }
-      getch();
-    }
-// registration module
+int login(){
+	
+	FILE *fptr;
+	
+	fptr = fopen("userData.txt","r+");
+	
+	int count =0;
+	char userId[20], pwd[20];
+	
+	//char adm = "a";
+   	//char vol = "v";
+    //char gue = "g";
+	
+	char dbLoginID[100];
+   	char dbPassword[100];
+    char dbuserType[100];
+		
+	system("cls");
+	printf("\t\t\t _____________________________________________________________________\n");
+	printf("\t\t\t|                            Login Form                               |\n");
+	printf("\t\t\t|_____________________________________________________________________|\n\n");
+	
+	printf("\t\t\t Enter Your User Id: ");
+	scanf("%s",&userId);
+	
+	printf("\n\t\t\t Enter Your Password: ");
+	fflush(stdin);
+	scanf("%s",&pwd);
+	
+	if(strcmp(userId,"Admin")==0 && strcmp(userId,"Admin")==0){
+		system("pause");
+		//admin();
+	}
+	
+	else{
+		
+	char line[100];
+  	while (fgets(line, 100, fptr) != NULL) 
+	  {
+       	
+    	sscanf(line, "%s %s %s", dbLoginID, dbPassword, dbuserType);
+
+    
+    	if (strcmp(userId, dbLoginID) == 0 && strcmp(pwd, dbPassword) == 0) {
+			//printf("Login successful\n");
+			/*if(strcmp(adm, dbuserType))
+			{
+				admin();	
+			}*/
+			count = count + 1;
+			
+			    		
+			}
+			
+    	}
+    	
+    	if (count==1)
+    	{
+    		printf("\n\t\t\t|------------------- You Have Login Succesfuly ---------------------|\n");
+			printf("\t\t\t|_____________________________________________________________________|\n");
+			//printf("\n\t\t\t                    [Press any Key to Continue]");
+      		
+      		//printf("\t\t\t");
+			//system("pause");
+			fclose(fptr);
+			printf("\n\t\t\t ");
+			system("pause");
+        	options();
+		}
+    	
+    	else
+    	{	
+    		printf("\n\n\t\t\t______________________________________________________________________");
+    		printf("\n\n\t\t\t Incorrect userId or Password\n\n\t\t\t Please Try Again\n\n\t\t\t ");
+    		system("pause");
+    		login();
+		}
+  	
+	  }
+	
+}
 int regis();
-    int regis()
-  {
-    system("cls");
-    FILE *fp;
-    char c,checker[30]; int z=0;
-    fp=fopen("Web_reg.txt","ab+");
-    printf("WELCOME TO REGISTRATION SECTION");
-    int i;
-    for( i=0;i<5;i++)
-    {
-      printf("\n\nENTER USERNAME: ");
-      scanf("%s",checker);
-        while(!feof(fp))
-        {
-          fread(&w[i],sizeof(w[i]),1,fp);
-          if(strcmp(checker,w[i].name)==0)
-            {
-            printf("\n\nUSERNAME ALREDY EXISTS");
-            system("cls");
-            regis();
-            }
-          else
-          {
-            strcpy(w[i].name,checker);
-            break;
-          }
-        }
-      printf("\n\nDESIRED PASSWORD: ");
-      while((c=getch())!=13)
-        {
-          w[i].pass[z++]=c;
-          printf("%c",'*');
-        }
-      fwrite(&w[i],sizeof(w[i]),1,fp);
-      fclose(fp);
-      printf("\n\nPress enter if you agree with Username and Password");
-      if((c=getch())==13)
-        {
-        system("cls");
-        printf("\n\n\t\tYou are successfully registered");
-        printf("\n\n\t\tTry login your account??\n\n\t\t  ");
-        printf("PRESS 1 FOR YES\n\n PRESS 2 FOR NO\n\n");
-        int n;
-        scanf("%d",&n);
-        switch(n)
-          {
-              case 1: system("cls");;
-                    login();
-                    break;
-              case 2: system("cls");;
-                    printf("\n\n\n\t\t\t\t\tTHANK YOU FOR REGISTERING");
-                    break;
-          }
-        }
-        break;
-      }
-    getch();
-  }
+int regis(){
+	
+	FILE *fptr;
+	
+	char userId[20], pwd[20], userType[5];
+	int opt;
+	
+	fptr = fopen("userData.txt","a");
+	
+	system("cls");
+	printf("\t\t\t _____________________________________________________________________\n");
+	printf("\t\t\t|                      Registeration Form                             |\n");
+	printf("\t\t\t|_____________________________________________________________________|\n\n");
+	
+	printf("\t\t\t Enter Your User Id: ");
+	scanf("%s",&userId);
+	
+	printf("\n\t\t\t Enter Your Password: ");
+	fflush(stdin);
+	scanf("%s",&pwd);
+	
+	
+	fflush(stdin);
+	fprintf(fptr, "%s %s \n",userId, &pwd);
+	fclose(fptr);
+	
+	printf("\n\t\t\t|----------------- You Have Registered Succesfuly --------------------|\n");
+	printf("\t\t\t|_____________________________________________________________________|");
+	
+	printf("\n\t\t\t                         PRESS [1]. Home\n ");
+	printf("\t\t\t                           PRESS [2]. Login\n ");
+	scanf("%d",&opt);
+	if(opt==1)
+	{
+		options();
+	}
+	
+	else if(opt==2)
+	{
+		login();
+	}
+	
+	else
+	{
+		printf("\nInvalid Input");
+	}
+
+}
 void main()
 {
 	printf("========================================================================================================================\n");
